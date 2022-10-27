@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+	
+	<PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+		<DocumentationFile>bin\Debug\ZT.Application.xml</DocumentationFile>
+	</PropertyGroup>
+
+	<PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+		<DocumentationFile>bin\Release\ZT.Application.xml</DocumentationFile>
+	</PropertyGroup>
+  <ItemGroup>
+	  <PackageReference Include="FytSoa.DynamicApi" Version="1.0.2-preview-03" />
+	  <PackageReference Include="FytSoa.Quartz" Version="1.0.1" />
+	  <PackageReference Include="Mapster" Version="7.3.0" />
+	  <PackageReference Include="Mapster.DependencyInjection" Version="1.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ZT.Domain\ZT.Domain.csproj" />
+    <ProjectReference Include="..\ZT.Sugar\ZT.Sugar.csproj" />
+  </ItemGroup>
+
+</Project>

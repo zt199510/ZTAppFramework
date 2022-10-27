@@ -1,0 +1,251 @@
+﻿<UserControl
+    x:Class="ZTAppFramework.Admin.Views.OrganizeView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:prism="http://prismlibrary.com/"
+    xmlns:ui="clr-namespace:ZTAppFramework.Template.Control;assembly=ZTAppFramework.Template">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid Grid.ColumnSpan="2">
+            <StackPanel Margin="5" Orientation="Horizontal">
+                <ui:ZTButton
+                    Width="50"
+                    Background="#409eff"
+                    Command="{Binding AddCommand}"
+                    Content="&#xe620;"
+                    Cursor="Hand"
+                    FontFamily="{StaticResource FontAwesome}"
+                    HoverBackground="#79bbff"
+                    Type="Normal" />
+                <ui:ZTButton
+                    Width="50"
+                    Margin="5,0"
+                    Background="#fef0f0"
+                    BorderBrush="#fab6b6"
+                    BorderThickness="1"
+                    Command="{Binding DeleteSelectCommand}"
+                    Content="&#xe620;"
+                    Cursor="Hand"
+                    FontFamily="{StaticResource FontAwesome}"
+                    Foreground="#fab6b6"
+                    HoverBackground="#f56c6c"
+                    Type="Normal" />
+            </StackPanel>
+
+            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                <ui:ZTTextBox
+                    Width="210"
+                    VerticalContentAlignment="Center"
+                    FontSize="16"
+                    Text="{Binding QueryStr, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    Watermark="组织名称" />
+                <ui:ZTButton
+                    Width="50"
+                    Margin="10,0"
+                    Background="#409eff"
+                    Command="{Binding QueryCommand}"
+                    Content="&#xe620;"
+                    Cursor="Hand"
+                    FontFamily="{StaticResource FontAwesome}"
+                    HoverBackground="#79bbff"
+                    IsLoading="{Binding IsBusy}"
+                    Type="Normal" />
+            </StackPanel>
+        </Grid>
+        <ui:ZTDataGrid
+            Grid.Row="1"
+            Grid.ColumnSpan="2"
+            AutoGenerateColumns="False"
+            BorderThickness="0,1"
+            CanUserAddRows="False"
+            ColumnHeaderHeight="40"
+            DataGridStyle="Standard"
+            IsReadOnly="True"
+            
+            ItemsSource="{Binding OrganizesList}">
+            <ui:ZTDataGrid.Columns>
+                <DataGridTemplateColumn MinWidth="50" MaxWidth="100">
+                    <DataGridTemplateColumn.Header>
+                        <ui:ZTCheckBox
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            CheckedBackground="#79bbff"
+                            Cursor="Hand">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Checked">
+                                    <i:InvokeCommandAction Command="{Binding DataContext.CheckedAllCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid, AncestorLevel=1}}" />
+                                </i:EventTrigger>
+                                <i:EventTrigger EventName="Unchecked">
+                                    <i:InvokeCommandAction Command="{Binding DataContext.UnCheckedAllCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid, AncestorLevel=1}}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </ui:ZTCheckBox>
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <ui:ZTCheckBox
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                CheckedBackground="#79bbff"
+                                Cursor="Hand"
+                                IsChecked="{Binding IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Checked">
+                                        <i:InvokeCommandAction Command="{Binding DataContext.CheckedCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid, AncestorLevel=1}}" CommandParameter="{Binding .}" />
+                                    </i:EventTrigger>
+                                    <i:EventTrigger EventName="Unchecked">
+                                        <i:InvokeCommandAction Command="{Binding DataContext.UncheckedCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid, AncestorLevel=1}}" CommandParameter="{Binding .}" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </ui:ZTCheckBox>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn MinWidth="140" MaxWidth="140">
+                    <DataGridTemplateColumn.Header>
+                        <TextBlock HorizontalAlignment="Center" Text="组织名称" />
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Text="{Binding Name}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+
+                <DataGridTemplateColumn MinWidth="80" MaxWidth="80">
+                    <DataGridTemplateColumn.Header>
+                        <TextBlock HorizontalAlignment="Center" Text="组织编号" />
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Text="{Binding Number}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn MinWidth="80" MaxWidth="80">
+                    <DataGridTemplateColumn.Header>
+                        <TextBlock HorizontalAlignment="Center" Text="负责人" />
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock
+                                Margin="15,0"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Text="{Binding LeaderUser}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+
+                <DataGridTemplateColumn MinWidth="140" MaxWidth="140">
+                    <DataGridTemplateColumn.Header>
+                        <TextBlock HorizontalAlignment="Center" Text="电话" />
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Text="{Binding LeaderMobile}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+
+                <DataGridTemplateColumn MinWidth="140" MaxWidth="140">
+                    <DataGridTemplateColumn.Header>
+                        <TextBlock HorizontalAlignment="Center" Text="状态" />
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock
+                                Width="40"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="14"
+                                Text="{Binding Status, Converter={StaticResource StatusToStringConverter}}">
+                                <TextBlock.Resources>
+                                    <Style TargetType="{x:Type TextBlock}">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Status}" Value="True">
+                                                <Setter Property="Background" Value="#f0f9eb" />
+                                                <Setter Property="Foreground" Value="Green" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Status}" Value="False">
+                                                <Setter Property="Background" Value="#fef0f0" />
+                                                <Setter Property="Foreground" Value="Red" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Resources>
+                            </TextBlock>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+
+                <DataGridTemplateColumn
+                    Width="*"
+                    MinWidth="140"
+                    MaxWidth="140">
+                    <DataGridTemplateColumn.Header>
+                        <TextBlock HorizontalAlignment="Center" Text="操作" />
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                                <ui:ZTButton
+                                    Width="50"
+                                    Height="30"
+                                    Background="#409eff"
+                                    Command="{Binding DataContext.ModifCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid, AncestorLevel=1}}"
+                                    CommandParameter="{Binding .}"
+                                    Content="&#xe620;"
+                                    Cursor="Hand"
+                                    FontFamily="{StaticResource FontAwesome}"
+                                    HoverBackground="#79bbff"
+                                    Type="Normal" />
+                                <ui:ZTButton
+                                    Width="50"
+                                    Height="30"
+                                    Margin="5,0"
+                                    Background="#fef0f0"
+                                    BorderBrush="#fab6b6"
+                                    BorderThickness="1"
+                                    Command="{Binding DataContext.DeleteSeifCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid, AncestorLevel=1}}"
+                                    CommandParameter="{Binding .}"
+                                    Content="&#xe620;"
+                                    Cursor="Hand"
+                                    FontFamily="{StaticResource FontAwesome}"
+                                    Foreground="#fab6b6"
+                                    HoverBackground="#f56c6c"
+                                    Type="Normal" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+
+            </ui:ZTDataGrid.Columns>
+
+        </ui:ZTDataGrid>
+    </Grid>
+</UserControl>

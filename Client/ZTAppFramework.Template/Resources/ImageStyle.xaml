@@ -1,0 +1,9 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ImageSource x:Key="Loginlogo">
+        pack://application:,,,/ZTAppFramework.Template;component/Img/Background_login.png
+    </ImageSource>
+    <ImageSource x:Key="Loginlogo2">
+        pack://application:,,,/ZTAppFramework.Template;component/Img/Background_login2.png
+    </ImageSource>
+    <FontFamily x:Key="FontAwesome">pack://application:,,,/ZTAppFramework.Template;component/Iconfonts/#iconfont</FontFamily>
+</ResourceDictionary>

@@ -1,0 +1,207 @@
+﻿<UserControl
+    x:Class="ZTAppFramework.Admin.Views.RoleModifyView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Global="clr-namespace:ZTAppFramework.Template.Global;assembly=ZTAppFramework.Template"
+    xmlns:prism="http://prismlibrary.com/"
+    xmlns:ui="clr-namespace:ZTAppFramework.Template.Control;assembly=ZTAppFramework.Template"
+    prism:ViewModelLocator.AutoWireViewModel="True">
+    <Global:ZTDialog.WindowStyle>
+        <Style TargetType="Window">
+            <Setter Property="AllowsTransparency" Value="True" />
+            <Setter Property="Background" Value="Gray" />
+            <Setter Property="WindowStyle" Value="None" />
+
+            <Setter Property="Width" Value="600" />
+            <Setter Property="SizeToContent" Value="WidthAndHeight" />
+        </Style>
+    </Global:ZTDialog.WindowStyle>
+
+    <Border
+        Width="800"
+        Height="400"
+        Background="White"
+        CornerRadius="5">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            <TextBlock
+                Margin="20,10"
+                FontFamily="方正"
+                FontSize="18"
+                FontWeight="Black"
+                Text="{Binding Title}" />
+            <StackPanel HorizontalAlignment="Right">
+                <ui:ZTButton
+                    Width="50"
+                    Background="Transparent"
+                    Command="{Binding CancelCommand}"
+                    Content="&#xe620;"
+                    Cursor="Hand"
+                    FontFamily="{StaticResource FontAwesome}"
+                    Foreground="Gray"
+                    HoverBackground="Transparent"
+                    Type="Normal" />
+            </StackPanel>
+
+
+            <StackPanel Grid.Row="1">
+                <StackPanel
+                    Width="700"
+                    Margin="0,10,0,0"
+                    Orientation="Horizontal">
+                    <TextBlock
+                        Width="100"
+                        VerticalAlignment="Center"
+                        FontSize="16"
+                        Text="所属角色" />
+                    <ui:ZTComboBox
+                        Width="600"
+                        CornerRadius="2"
+                        Cursor="Hand"
+                        DisplayMemberPath="Name"
+                        ItemsSource="{Binding RoleList}"
+                        SelectedItem="{Binding SelectedItem}"
+                        Watermark="请选择角色名称" />
+                </StackPanel>
+                <StackPanel
+                    Width="700"
+                    Height=" 40"
+                    Margin="0,10,0,0"
+                    Orientation="Horizontal">
+                    <TextBlock
+                        Width="100"
+                        VerticalAlignment="Center"
+                        FontSize="16"
+                        Text="角色名称" />
+                    <ui:ZTTextBox
+                        Width="600"
+                        VerticalContentAlignment="Center"
+                        Text="{Binding RoleModel.Name}"
+                        Watermark="请输入角色名称" />
+
+                </StackPanel>
+
+                <StackPanel
+                    Width="700"
+                    Height=" 40"
+                    Margin="0,10,0,0"
+                    Orientation="Horizontal">
+                    <TextBlock
+                        Width="100"
+                        VerticalAlignment="Center"
+                        FontSize="16"
+                        Text="是否超管" />
+                    <ui:ZTCheckBox
+                        Width="200"
+                        VerticalContentAlignment="Center"
+                        CheckBoxStyle="Switch2"
+                        CheckedBackground="#409eff"
+                        Content="如果是超管不允许删除"
+                        Foreground="#409eff"
+                        IsChecked="{Binding RoleModel.IsSystem}" />
+                    <TextBlock
+                        Width="100"
+                        Margin="10,0,0,0"
+                        VerticalAlignment="Center"
+                        FontSize="16"
+                        Text="状态" />
+                    <ui:ZTRadioButton
+                        CheckedBackground="#409eff"
+                        Command="{Binding StatusChanageCommand}"
+                        CommandParameter="True"
+                        Content="正常"
+                        IsChecked="{Binding RoleModel.Status}" />
+                    <ui:ZTRadioButton
+                        Margin="20,0,0,0"
+                        CheckedBackground="#409eff"
+                        Command="{Binding StatusChanageCommand}"
+                        CommandParameter="False"
+                        Content="停用"
+                        IsChecked="{Binding RoleModel.Status, Converter={StaticResource BoolInverseConverter}}" />
+                </StackPanel>
+
+
+
+                <StackPanel
+                    Width="700"
+                    Height=" 40"
+                    Margin="0,10,0,0"
+                    Orientation="Horizontal">
+                    <TextBlock
+                        Width="100"
+                        VerticalAlignment="Center"
+                        FontSize="16"
+                        Text="排序" />
+                    <Slider
+                        x:Name="SortSlider"
+                        Width="400"
+                        VerticalAlignment="Center"
+                        Cursor="Hand"
+                        IsSnapToTickEnabled="True"
+                        Maximum="100"
+                        Minimum="1"
+                        TickFrequency="1"
+                        TickPlacement="Both"
+                        Value="{Binding RoleModel.Sort, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <ui:ZTTextBox
+                        VerticalContentAlignment="Center"
+                        FontSize="16"
+                        Text="{Binding ElementName=SortSlider, Path=Value}" />
+                </StackPanel>
+                <StackPanel
+                    Width="700"
+                    Height="80"
+                    Margin="0,20,0,0"
+                    Orientation="Horizontal">
+                    <TextBlock
+                        Width="100"
+                        VerticalAlignment="Center"
+                        FontSize="16"
+                        Text="多行文本" />
+
+                    <ui:ZTTextBox
+                        Width="600"
+                        Height="75"
+                        Padding="10"
+                        VerticalContentAlignment="Top"
+                        FontSize="16"
+                        Text="{Binding RoleModel.Summary}"
+                        TextWrapping="Wrap"
+                        Watermark="请输入备注" />
+                </StackPanel>
+            </StackPanel>
+
+            <StackPanel
+                Grid.Row="2"
+                Margin="0,0,20,10"
+                HorizontalAlignment="Right"
+                Orientation="Horizontal">
+                <ui:ZTButton
+                    Margin="0,0,10,0"
+                    Background="White"
+                    BorderThickness="1"
+                    Command="{Binding CancelCommand}"
+                    Content="取消"
+                    Cursor="Hand"
+                    HoverBackground="#ecf5ff"
+                    HoverBorderBrush="Gray" />
+
+                <ui:ZTButton
+                    Background="#409eff"
+                    BorderThickness="1"
+                    Command="{Binding SaveCommand}"
+                    Content="确认"
+                    Cursor="Hand"
+                    Foreground="White"
+                    HoverBackground="#79bbff"
+                    HoverBorderBrush="LightGray"
+                    IsLoading="{Binding IsBusy}" />
+            </StackPanel>
+        </Grid>
+
+    </Border>
+</UserControl>

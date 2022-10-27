@@ -1,0 +1,437 @@
+﻿<UserControl
+    x:Class="ZTAppFramework.Admin.Views.SysMenuView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Selector="clr-namespace:ZTAppFramework.Admin.Selector"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:prism="http://prismlibrary.com/"
+    xmlns:ui="clr-namespace:ZTAppFramework.Template.Control;assembly=ZTAppFramework.Template"
+    prism:ViewModelLocator.AutoWireViewModel="True">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="220" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid Grid.RowSpan="3">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <StackPanel Orientation="Horizontal">
+                <ui:ZTTextBox
+                    Width="140"
+                    Height="30"
+                    Margin="5,0,0,0"
+                    Padding="5,0"
+                    VerticalContentAlignment="Center"
+                    Watermark="请输入关键字进行过滤" />
+                <ui:ZTButton
+                    Width="30"
+                    Height="30"
+                    Margin="5,0,0,0"
+                    Background="#409eff"
+                    Command="{Binding AddCommand}"
+                    Content="&#xe620;"
+                    Cursor="Hand"
+                    FontFamily="{StaticResource FontAwesome}"
+                    HoverBackground="#79bbff"
+                    Type="Normal" />
+                <ui:ZTButton
+                    Width="30"
+                    Height="30"
+                    Margin="5,0,0,0"
+                    Background="#fef0f0"
+                    BorderBrush="#fab6b6"
+                    BorderThickness="1"
+                    Command="{Binding DeleteSelectCommand}"
+                    Content="&#xe620;"
+                    Cursor="Hand"
+                    FontFamily="{StaticResource FontAwesome}"
+                    Foreground="#fab6b6"
+                    HoverBackground="#f56c6c"
+                    Type="Normal" />
+            </StackPanel>
+
+            <ui:ZTTreeView
+                Grid.Row="1"
+                Background="Transparent"
+                BorderThickness="0,0.2,0,0"
+                ItemsSource="{Binding MenuTreeList}">
+                <ui:ZTTreeView.ItemContainerStyle>
+                    <Style BasedOn="{StaticResource ZTTreeViewItemStyle}" TargetType="{x:Type ui:ZTTreeViewItem}">
+                        <Setter Property="IsExpanded" Value="true" />
+                    </Style>
+                </ui:ZTTreeView.ItemContainerStyle>
+                <ui:ZTTreeView.ItemTemplate>
+                    <HierarchicalDataTemplate ItemsSource="{Binding Childer}">
+                        <ui:ZTRadioButton
+                            Width="175"
+                            Height="30"
+                            Background="Transparent"
+                            CheckedBackground="#E7F2FC"
+                            Command="{Binding DataContext.GoMenuInfoCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ui:ZTTreeView}, AncestorLevel=1}}"
+                            CommandParameter="{Binding}"
+                            GroupName="MenuName"
+                            IsChecked="{Binding IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            RadioButtonStyle="Button">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="auto" />
+                                </Grid.ColumnDefinitions>
+                                <ui:ZTCheckBox
+                                    VerticalAlignment="Center"
+                                    CheckedBackground="#3E6FF8"
+                                    Command="{Binding DataContext.CheckedCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorLevel=1, AncestorType={x:Type ui:ZTTreeView}}}"
+                                    CommandParameter="{Binding}"
+                                    IsChecked="{Binding IsChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <TextBlock
+                                    Grid.Column="1"
+                                    Width="80"
+                                    VerticalAlignment="Center"
+                                    Text="{Binding Name}" />
+                                <ui:ZTButton
+                                    Grid.Column="2"
+                                    Width="20"
+                                    Height="20"
+                                    Margin="0"
+                                    Padding="0"
+                                    HorizontalAlignment="Right"
+                                    VerticalContentAlignment="Center"
+                                    BorderBrush="LightGray"
+                                    BorderThickness="0.5"
+                                    Content="+"
+                                    CornerRadius="15"
+                                    Foreground="LightGray"
+                                    HoverBackground="#3E6FF8" />
+                            </Grid>
+                        </ui:ZTRadioButton>
+                    </HierarchicalDataTemplate>
+                </ui:ZTTreeView.ItemTemplate>
+            </ui:ZTTreeView>
+        </Grid>
+
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="325" />
+            </Grid.ColumnDefinitions>
+            <TextBlock
+                Margin="10,0"
+                VerticalAlignment="Center"
+                FontSize="16"
+                FontWeight="Black"
+                Text="{Binding SelectedItems.Name}" />
+            <TextBlock
+                Grid.Column="1"
+                Margin="10,0"
+                VerticalAlignment="Center"
+                FontSize="16"
+                FontWeight="Black"
+                Text="接口权限" />
+            <Border
+                Grid.RowSpan="2"
+                BorderBrush="Gray"
+                BorderThickness="0.5" />
+            <Border
+                Grid.RowSpan="2"
+                Grid.Column="1"
+                BorderBrush="Gray"
+                BorderThickness="0,0.5,0.5,0" />
+            <ScrollViewer Grid.Row="1">
+                <StackPanel>
+                    <StackPanel Margin="10,0,0,0" Orientation="Horizontal">
+                        <TextBlock
+                            Width="100"
+                            VerticalAlignment="Center"
+                            FontSize="14"
+                            Text="显示名称" />
+                        <ui:ZTTextBox
+                            Width="210"
+                            Height="30"
+                            VerticalContentAlignment="Center"
+                            Text="{Binding Info.Name}" />
+                    </StackPanel>
+
+                    <StackPanel Margin="10,10,0,0" Orientation="Horizontal">
+                        <TextBlock
+                            Width="100"
+                            VerticalAlignment="Center"
+                            FontSize="14"
+                            Text="上级菜单" />
+                        <ui:ZTTextBox
+                            Width="210"
+                            Height="30"
+                            VerticalContentAlignment="Center"
+                            IsEnabled="False"
+                            Text="{Binding Info.Name}" />
+                    </StackPanel>
+
+                    <StackPanel Margin="10,10,0,0" Orientation="Horizontal">
+                        <TextBlock
+                            Width="100"
+                            VerticalAlignment="Center"
+                            FontSize="14"
+                            Text="类型" />
+                        <StackPanel Height="30" Orientation="Horizontal">
+                            <ui:ZTRadioButton
+                                CheckedBackground="#79bbff"
+                                Content="菜单"
+                                CornerRadius="5,0,0,5"
+                                IsChecked="True"
+                                RadioButtonStyle="Button" />
+                            <ui:ZTRadioButton
+                                CheckedBackground="#79bbff"
+                                Content="Iframe"
+                                CornerRadius="0"
+                                RadioButtonStyle="Button" />
+                            <ui:ZTRadioButton
+                                CheckedBackground="#79bbff"
+                                Content="外链"
+                                CornerRadius="0"
+                                RadioButtonStyle="Button" />
+                            <ui:ZTRadioButton
+                                CheckedBackground="#79bbff"
+                                Content="按钮"
+                                CornerRadius="0,5,5,0"
+                                RadioButtonStyle="Button" />
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel Margin="10,10,0,0" Orientation="Horizontal">
+                        <TextBlock
+                            Width="100"
+                            VerticalAlignment="Center"
+                            FontSize="14"
+                            Text="别名" />
+                        <ui:ZTTextBox
+                            Width="210"
+                            Height="30"
+                            VerticalContentAlignment="Center"
+                            Text="{Binding Info.Code}" />
+                    </StackPanel>
+                    <TextBlock
+                        Margin="110,2,20,0"
+                        Foreground="Gray"
+                        Text="系统唯一且与内置组件名一致，否则导致缓存失效。如类型为Iframe的菜单，别名将代替源地址显示在地址栏"
+                        TextWrapping="Wrap" />
+                    <StackPanel Margin="10,10,0,0" Orientation="Horizontal">
+                        <TextBlock
+                            Width="100"
+                            VerticalAlignment="Center"
+                            FontSize="14"
+                            Text="路由地址" />
+                        <ui:ZTTextBox
+                            Width="210"
+                            Height="30"
+                            VerticalContentAlignment="Center"
+                            Text="{Binding Info.Urls}" />
+                    </StackPanel>
+
+                    <StackPanel Margin="10,10,0,0" Orientation="Horizontal">
+                        <TextBlock
+                            Width="100"
+                            VerticalAlignment="Center"
+                            FontSize="14"
+                            Text="重定向" />
+                        <ui:ZTTextBox
+                            Width="210"
+                            Height="30"
+                            VerticalContentAlignment="Center" />
+                    </StackPanel>
+
+                    <StackPanel Margin="10,10,0,0" Orientation="Horizontal">
+                        <TextBlock
+                            Width="100"
+                            VerticalAlignment="Center"
+                            FontSize="14"
+                            Text="菜单高亮" />
+                        <ui:ZTTextBox
+                            Width="210"
+                            Height="30"
+                            VerticalContentAlignment="Center" />
+                    </StackPanel>
+                    <TextBlock
+                        Margin="110,2,20,0"
+                        Foreground="Gray"
+                        Text=" 子节点或详情页需要高亮的上级菜单路由地址"
+                        TextWrapping="Wrap" />
+                    <StackPanel Margin="10,10,0,0" Orientation="Horizontal">
+                        <TextBlock
+                            Width="100"
+                            VerticalAlignment="Center"
+                            FontSize="14"
+                            Text="视图" />
+                        <ui:ZTTextBox
+                            Width="210"
+                            Height="30"
+                            VerticalContentAlignment="Center"
+                            Text="{Binding Info.VuePath}" />
+                    </StackPanel>
+                    <TextBlock
+                        Margin="110,2,20,0"
+                        Foreground="Gray"
+                        Text="如父节点、链接或Iframe等没有视图的菜单不需要填写"
+                        TextWrapping="Wrap" />
+                    <StackPanel Margin="10,10,0,0" Orientation="Horizontal">
+                        <TextBlock
+                            Width="100"
+                            VerticalAlignment="Center"
+                            FontSize="14"
+                            Text="颜色" />
+                        <ui:ZTTextBox
+                            Width="210"
+                            Height="30"
+                            VerticalContentAlignment="Center" />
+                    </StackPanel>
+
+                    <StackPanel Margin="10,10,0,0" Orientation="Horizontal">
+                        <TextBlock
+                            Width="100"
+                            VerticalAlignment="Center"
+                            FontSize="14"
+                            Text="是否显示" />
+                        <StackPanel Orientation="Horizontal">
+                            <ui:ZTRadioButton
+                                Width="80"
+                                CheckedBackground="#79bbff"
+                                Content="显示"
+                                Cursor="Hand"
+                                IsChecked="{Binding Info.Status}" />
+                            <ui:ZTRadioButton
+                                CheckedBackground="#79bbff"
+                                Content="隐藏"
+                                Cursor="Hand"
+                                IsChecked="{Binding Info.Status, Converter={StaticResource BoolInverseConverter}}" />
+                        </StackPanel>
+                    </StackPanel>
+
+                    <StackPanel Margin="10,10,0,0" Orientation="Horizontal">
+                        <TextBlock
+                            Width="100"
+                            VerticalAlignment="Center"
+                            FontSize="14"
+                            Text="是否全屏" />
+                        <StackPanel Orientation="Horizontal">
+                            <ui:ZTRadioButton
+                                Width="80"
+                                CheckedBackground="#79bbff"
+                                Content="是"
+                                Cursor="Hand" />
+                            <ui:ZTRadioButton
+                                CheckedBackground="#79bbff"
+                                Content="否"
+                                Cursor="Hand" />
+                        </StackPanel>
+                    </StackPanel>
+
+                    <ui:ZTButton
+                        Width="130"
+                        Height="40"
+                        Margin="110,20,0,0"
+                        HorizontalAlignment="Left"
+                        Background="#409eff"
+                        Content="保存"
+                        Cursor="Hand"
+                        HoverBackground="#79bbff"
+                        Type="Normal" />
+                </StackPanel>
+            </ScrollViewer>
+            <ScrollViewer
+                Grid.Row="1"
+                Grid.Column="1"
+                HorizontalScrollBarVisibility="Auto">
+                <ui:ZTDataGrid
+                    AutoGenerateColumns="False"
+                    BorderThickness="0.5"
+                    CanUserAddRows="False"
+                    ColumnHeaderHeight="40"
+                    DataGridStyle="Standard"
+                    IsReadOnly="True"
+                    ItemsSource="{Binding SysAdminList}"
+                    ScrollViewer.HorizontalScrollBarVisibility="Auto">
+                    <ui:ZTDataGrid.Columns>
+                        <DataGridTemplateColumn MinWidth="80" MaxWidth="80">
+                            <DataGridTemplateColumn.Header>
+                                <ui:ZTButton
+                                    Width="30"
+                                    Height="30"
+                                    Background="#409eff"
+                                    Content="+"
+                                    CornerRadius="15"
+                                    Cursor="Hand"
+                                    FontSize="12"
+                                    HoverBackground="#79bbff"
+                                    Type="Normal" />
+                            </DataGridTemplateColumn.Header>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn MinWidth="80" MaxWidth="80">
+                            <DataGridTemplateColumn.Header>
+                                <TextBlock HorizontalAlignment="Center" Text="标识" />
+                            </DataGridTemplateColumn.Header>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Text="{Binding FullName}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTemplateColumn MinWidth="80" MaxWidth="80">
+                            <DataGridTemplateColumn.Header>
+                                <TextBlock HorizontalAlignment="Center" Text="请求类型" />
+                            </DataGridTemplateColumn.Header>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock
+                                        Margin="15,0"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Text="{Binding RoleGroupName}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTemplateColumn MinWidth="80" MaxWidth="80">
+                            <DataGridTemplateColumn.Header>
+                                <TextBlock HorizontalAlignment="Center" Text="ApiUrl" />
+                            </DataGridTemplateColumn.Header>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock
+                                        Margin="15,0"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Text="{Binding RoleGroupName}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </ui:ZTDataGrid.Columns>
+                </ui:ZTDataGrid>
+            </ScrollViewer>
+        </Grid>
+        <Border
+            Margin="0"
+            BorderBrush="LightGray"
+            BorderThickness="0.5" />
+        <Border
+            Grid.Column="1"
+            Grid.ColumnSpan="2"
+            Margin="0"
+            BorderBrush="LightGray"
+            BorderThickness="0,0.5" />
+
+
+    </Grid>
+</UserControl>

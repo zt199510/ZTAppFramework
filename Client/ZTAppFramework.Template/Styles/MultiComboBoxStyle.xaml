@@ -1,0 +1,259 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:ZTAppFramework.Template.Control">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/ZTAppFramework.Template;component/Resources/ConverterStyle.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+    <Style TargetType="{x:Type local:ZTMultiComboBox}">
+        <Setter Property="SnapsToDevicePixels" Value="False" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="Foreground" Value="#3E3E3E" />
+        <Setter Property="Background" Value="White" />
+        <Setter Property="BorderBrush" Value="LightGray" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="HoverBorderBrush" Value="Gray" />
+        <Setter Property="Padding" Value="5,0,0,0" />
+        <Setter Property="ItemPadding" Value="5,0,0,0" />
+        <Setter Property="ShadowColor" Value="#888888" />
+        <Setter Property="MaxDropDownHeight" Value="150" />
+        <Setter Property="ItemHeight" Value="30" />
+        <Setter Property="MaxTextLength" Value="10" />
+        <Setter Property="VirtualizingStackPanel.IsVirtualizing" Value="True" />
+        <Setter Property="VirtualizingStackPanel.VirtualizationMode" Value="Recycling" />
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />
+        <Setter Property="SearchTextBoxWatermark" Value="Search ..." />
+        <Setter Property="ShadowColor" Value="#888888" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:ZTMultiComboBox}">
+                    <Grid>
+                        <Border
+                            x:Name="Border"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="{TemplateBinding CornerRadius}" />
+                        <Grid>
+
+                            <ContentPresenter
+                                x:Name="ContentSite"
+                                Margin="{TemplateBinding Padding}"
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                Content="{TemplateBinding Text}"
+                                IsHitTestVisible="False" />
+                            <TextBlock
+                                x:Name="TxtWatermark"
+                                Margin="{TemplateBinding Padding}"
+                                Padding="10,0,0,0"
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                Focusable="False"
+                                Foreground="Gray"
+                                IsHitTestVisible="False"
+                                Opacity="1"
+                                Text="{TemplateBinding Watermark}"
+                                TextWrapping="Wrap"
+                                Visibility="Collapsed" />
+                        </Grid>
+                        <ToggleButton
+                            x:Name="ToggleButton"
+                            Background="Transparent"
+                            BorderBrush="Transparent"
+                            BorderThickness="0"
+                            ClickMode="Press"
+                            Focusable="false"
+                            Foreground="{TemplateBinding Foreground}"
+                            IsChecked="{Binding Path=IsOpen, Mode=TwoWay, ElementName=Popup}">
+                            <ToggleButton.Style>
+                                <Style TargetType="ToggleButton">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="ToggleButton">
+                                                <Grid Background="Transparent">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*" />
+                                                        <ColumnDefinition Width="30" />
+                                                    </Grid.ColumnDefinitions>
+                                                    <Path
+                                                        x:Name="arrow1"
+                                                        Grid.Column="1"
+                                                        Width="15"
+                                                        Height="15"
+                                                        HorizontalAlignment="Center"
+                                                        VerticalAlignment="Center"
+                                                        Data="M5,4 H14 L9.5,10 Z"
+                                                        Fill="{TemplateBinding Foreground}"
+                                                        Opacity="1"
+                                                        RenderTransformOrigin="0.5,0.5" />
+                                                    <Path
+                                                        x:Name="arrow2"
+                                                        Grid.Column="1"
+                                                        Width="15"
+                                                        Height="15"
+                                                        HorizontalAlignment="Center"
+                                                        VerticalAlignment="Center"
+                                                        Data="M5,10 H14 L9.5,4.5 Z"
+                                                        Fill="{TemplateBinding Foreground}"
+                                                        Opacity="0"
+                                                        RenderTransformOrigin="0.5,0.5" />
+                                                </Grid>
+                                                <ControlTemplate.Triggers>
+                                                    <Trigger Property="IsChecked" Value="True">
+                                                        <Trigger.EnterActions>
+                                                            <BeginStoryboard>
+                                                                <Storyboard>
+                                                                    <DoubleAnimation
+                                                                        Storyboard.TargetName="arrow1"
+                                                                        Storyboard.TargetProperty="Opacity"
+                                                                        To="0"
+                                                                        Duration="0:0:0.2" />
+                                                                    <DoubleAnimation
+                                                                        Storyboard.TargetName="arrow2"
+                                                                        Storyboard.TargetProperty="Opacity"
+                                                                        To="1"
+                                                                        Duration="0:0:0.2" />
+                                                                </Storyboard>
+                                                            </BeginStoryboard>
+                                                        </Trigger.EnterActions>
+                                                        <Trigger.ExitActions>
+                                                            <BeginStoryboard>
+                                                                <Storyboard>
+                                                                    <DoubleAnimation
+                                                                        Storyboard.TargetName="arrow1"
+                                                                        Storyboard.TargetProperty="Opacity"
+                                                                        To="1"
+                                                                        Duration="0:0:0.2" />
+                                                                    <DoubleAnimation
+                                                                        Storyboard.TargetName="arrow2"
+                                                                        Storyboard.TargetProperty="Opacity"
+                                                                        To="0"
+                                                                        Duration="0:0:0.2" />
+                                                                </Storyboard>
+                                                            </BeginStoryboard>
+                                                        </Trigger.ExitActions>
+                                                    </Trigger>
+
+                                                </ControlTemplate.Triggers>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </ToggleButton.Style>
+                        </ToggleButton>
+                        <local:NotTopMostPopup
+                            x:Name="Popup"
+                            AllowsTransparency="True"
+                            Focusable="False"
+                            IsOpen="{Binding IsDropDownOpen, RelativeSource={RelativeSource AncestorType=local:ZTMultiComboBox}}"
+                            Placement="Bottom"
+                            PopupAnimation="Slide"
+                            StaysOpen="{Binding StaysOpen, RelativeSource={RelativeSource AncestorType=local:ZTMultiComboBox}}"
+                            Tag="{Binding ElementName=ToggleButton}">
+                            <Grid
+                                x:Name="DropDown"
+                                MinWidth="{Binding ActualWidth, ElementName=ToggleButton}"
+                                MaxHeight="{TemplateBinding MaxDropDownHeight}">
+                                <Border
+                                    x:Name="DropDownBorder"
+                                    Margin="0,0,0,10"
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    CornerRadius="2">
+                                    <Border.Effect>
+                                        <DropShadowEffect
+                                            BlurRadius="10"
+                                            Opacity="1"
+                                            ShadowDepth="0"
+                                            Color="{Binding Path=ShadowColor, Converter={StaticResource NullableColorToColoConverter}, RelativeSource={RelativeSource AncestorType=local:ZTMultiComboBox}, Mode=OneWay}" />
+                                    </Border.Effect>
+                                </Border>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+                                    <TextBox
+                                        x:Name="TbSearch"
+                                        Height="30"
+                                        Margin="1,5,1,0"
+                                        Padding="5,0,0,0"
+                                        BorderBrush="Transparent"
+                                        BorderThickness="0"
+                                        Foreground="{TemplateBinding Foreground}"
+                                        Text="{Binding SearchText, RelativeSource={RelativeSource AncestorType=local:ZTMultiComboBox}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        Visibility="Collapsed" />
+                                    <ScrollViewer Grid.Row="1" Margin="1,5,1,15">
+                                        <ItemsPresenter />
+                                    </ScrollViewer>
+                                </Grid>
+                            </Grid>
+                        </local:NotTopMostPopup>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsSearchTextBoxVisible" Value="True">
+                            <Setter TargetName="TbSearch" Property="Visibility" Value="Visible" />
+                        </Trigger>
+                        <DataTrigger Binding="{Binding Text, Converter={StaticResource IsNullOrEmptyConverter}, RelativeSource={RelativeSource Self}}" Value="True">
+                            <Setter TargetName="TxtWatermark" Property="Visibility" Value="Visible" />
+                        </DataTrigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Opacity" Value="1" />
+                            <Setter Property="BorderBrush" Value="{Binding RelativeSource={RelativeSource Mode=Self}, Path=HoverBorderBrush}" />
+                        </Trigger>
+
+                        <Trigger Property="IsMouseOver" Value="False">
+                            <Setter Property="Opacity" Value="0.9" />
+                        </Trigger>
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter Property="Opacity" Value="1" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+
+    <Style TargetType="{x:Type local:ZTMultiComboBoxItem}">
+        <Setter Property="SnapsToDevicePixels" Value="False" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="Foreground" Value="#3E3E3E" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="CheckBoxStyle" Value="{Binding CheckBoxStyle, RelativeSource={RelativeSource AncestorType=local:ZTMultiComboBox}}" />
+        <Setter Property="Padding" Value="{Binding ItemPadding, RelativeSource={RelativeSource AncestorType=local:ZTMultiComboBox}}" />
+        <Setter Property="Height" Value="{Binding ItemHeight, RelativeSource={RelativeSource AncestorType=local:ZTMultiComboBox}}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:ZTMultiComboBoxItem}">
+                    <Grid>
+                        <Border
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}" />
+                        <local:ZTCheckBox
+                            Margin="{TemplateBinding Padding}"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                            CheckBoxStyle="Button"
+                            CheckedBackground="#79bbff"
+                            Content="{TemplateBinding Content}"
+                            IsChecked="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type local:ZTMultiComboBoxItem}}, Mode=TwoWay}" />
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+    </Style>
+
+</ResourceDictionary>

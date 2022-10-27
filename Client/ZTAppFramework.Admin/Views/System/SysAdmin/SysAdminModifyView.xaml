@@ -1,0 +1,342 @@
+﻿<UserControl
+    x:Class="ZTAppFramework.Admin.Views.SysAdminModifyView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Global="clr-namespace:ZTAppFramework.Template.Global;assembly=ZTAppFramework.Template"
+    xmlns:Helper="clr-namespace:ZTAppFramework.Template.Extensions;assembly=ZTAppFramework.Template"
+    xmlns:prism="http://prismlibrary.com/"
+    xmlns:ui="clr-namespace:ZTAppFramework.Template.Control;assembly=ZTAppFramework.Template"
+    prism:ViewModelLocator.AutoWireViewModel="True">
+    <Global:ZTDialog.WindowStyle>
+        <Style TargetType="Window">
+            <Setter Property="AllowsTransparency" Value="True" />
+            <Setter Property="Background" Value="Gray" />
+            <Setter Property="WindowStyle" Value="None" />
+
+            <Setter Property="Width" Value="600" />
+            <Setter Property="SizeToContent" Value="WidthAndHeight" />
+        </Style>
+    </Global:ZTDialog.WindowStyle>
+
+    <Border
+        Width="800"
+        Height="500"
+        Background="White"
+        CornerRadius="5">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            <TextBlock
+                Margin="20,10"
+                FontFamily="方正"
+                FontSize="18"
+                FontWeight="Black"
+                Text="{Binding Title}" />
+            <StackPanel HorizontalAlignment="Right">
+                <ui:ZTButton
+                    Width="50"
+                    Background="Transparent"
+                    Command="{Binding CancelCommand}"
+                    Content="&#xe620;"
+                    Cursor="Hand"
+                    FontFamily="{StaticResource FontAwesome}"
+                    Foreground="Gray"
+                    HoverBackground="Transparent"
+                    Type="Normal" />
+            </StackPanel>
+
+            <Grid Grid.Row="1" Margin="20,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid Width="230">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+                    <Border
+                        Margin="0,12,0,0"
+                        BorderBrush="LightGray"
+                        BorderThickness="1"
+                        CornerRadius="2" />
+                    <Border
+                        Grid.Row="1"
+                        Height="150"
+                        Background="#f6f9fd"
+                        BorderThickness="1"
+                        CornerRadius="2">
+                        <StackPanel
+                            Margin="0,10"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock FontSize="16">上次登入:</TextBlock>
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    FontSize="14"
+                                    Text="{Binding Data.UpLoginTime, StringFormat=yyyy-MM-dd hh:mm:ss}" />
+                            </StackPanel>
+                            <UniformGrid
+                                Width="200"
+                                Margin="0,30,0,0"
+                                Columns="3">
+                                <StackPanel>
+                                    <TextBlock
+                                        HorizontalAlignment="Center"
+                                        FontSize="16"
+                                        Text="{Binding Data.LoginCount}" />
+                                    <TextBlock HorizontalAlignment="Center" FontSize="16">次数</TextBlock>
+                                </StackPanel>
+                                <StackPanel>
+                                    <TextBlock
+                                        HorizontalAlignment="Center"
+                                        FontSize="16"
+                                        Text="{Binding Data.Status, Converter={StaticResource StatusToStringConverter}}" />
+                                    <TextBlock HorizontalAlignment="Center" FontSize="16">状态</TextBlock>
+                                </StackPanel>
+                                <StackPanel>
+                                    <TextBlock HorizontalAlignment="Center" FontSize="16">0</TextBlock>
+                                    <TextBlock HorizontalAlignment="Center" FontSize="16">消息</TextBlock>
+                                </StackPanel>
+                            </UniformGrid>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+                <StackPanel
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Margin="10,0,0,0">
+                    <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
+                        <TextBlock
+                            Width="65"
+                            VerticalAlignment="Center"
+                            FontSize="14"
+                            Text="所属部门" />
+                        <ui:ZTComboBox
+                            Width="440"
+                            CornerRadius="2"
+                            Cursor="Hand"
+                            DisplayMemberPath="Name"
+                            ItemsSource="{Binding OrganizeMenu}"
+                            SelectedItem="{Binding SelectOrganizeModel}"
+                            Watermark="请选择所属部门" />
+                    </StackPanel>
+                    <StackPanel
+                        Width="700"
+                        Height="40"
+                        Margin="0,10,0,0"
+                        Orientation="Horizontal">
+                        <TextBlock
+                            Width="65"
+                            VerticalAlignment="Center"
+                            FontSize="14"
+                            Text="登入账号" />
+                        <ui:ZTTextBox
+                            Width="180"
+                            VerticalContentAlignment="Center"
+                            Text="{Binding Data.LoginAccount}"
+                            Watermark="请输入登入账号" />
+                        <TextBlock
+                            Width="70"
+                            Margin="10,0,0,0"
+                            VerticalAlignment="Center"
+                            FontSize="14"
+                            Text="所属角色" />
+                        <ui:ZTMultiComboBox
+                            Width="180"
+                            Height="35"
+                            CornerRadius="2"
+                            Cursor="Hand"
+                            DisplayMemberPath="Name"
+                            FontSize="12"
+                            ItemsSource="{Binding SysRoleMenu}"
+                            MultiSelectedItems="{Binding SelectRoleItems, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            Watermark="请选择所属角色" />
+                    </StackPanel>
+                    <StackPanel
+                        Width="700"
+                        Height="40"
+                        Margin="0,10,0,0"
+                        Orientation="Horizontal">
+                        <TextBlock
+                            Width="65"
+                            VerticalAlignment="Center"
+                            FontSize="14"
+                            Text="登入密码" />
+                        <PasswordBox
+                            Width="180"
+                            VerticalContentAlignment="Center"
+                            Helper:PasswordBoxHelper.IsShowPwdButtonVisible="True"
+                            Helper:PasswordBoxHelper.Password="{Binding Data.LoginPassWord, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            Helper:PasswordBoxHelper.Watermark="请输入登入密码"
+                            Style="{StaticResource ZTPasswordBox}" />
+                        <TextBlock
+                            Width="70"
+                            Margin="10,0,0,0"
+                            VerticalAlignment="Center"
+                            FontSize="14"
+                            Text="所属岗位" />
+                        <!--<ui:ZTComboBox
+                            Width="180"
+                            CornerRadius="2"
+                            Cursor="Hand"
+                            DisplayMemberPath="Name"
+                            ItemsSource="{Binding RoleList}"
+                            SelectedItem="{Binding SelectedItem}"
+                            Watermark="请选择所属岗位" />-->
+                        <ui:ZTMultiComboBox
+                            Width="180"
+                            Height="35"
+                            CornerRadius="2"
+                            DisplayMemberPath="Name"
+                            FontSize="12"
+                            Foreground="Gray"
+                            ItemPadding="5,2"
+                            ItemsSource="{Binding SysPostMenu}"
+                            MultiSelectedItems="{Binding SelectPostItems, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            Watermark="请选择所属岗位" />
+                    </StackPanel>
+
+                    <StackPanel
+                        Width="700"
+                        Height="40"
+                        Margin="0,10,0,0"
+                        Orientation="Horizontal">
+                        <TextBlock
+                            Width="65"
+                            VerticalAlignment="Center"
+                            FontSize="14"
+                            Text="姓名" />
+                        <ui:ZTTextBox
+                            Width="180"
+                            VerticalContentAlignment="Center"
+                            Text="{Binding Data.FullName}"
+                            Watermark="请输入姓名" />
+                        <TextBlock
+                            Width="70"
+                            Margin="10,0,0,0"
+                            VerticalAlignment="Center"
+                            FontSize="14"
+                            Text="手机号码" />
+                        <ui:ZTTextBox
+                            Width="180"
+                            VerticalContentAlignment="Center"
+                            Text="{Binding Data.Mobile}"
+                            Watermark="请输入手机号码" />
+                    </StackPanel>
+                    <StackPanel
+                        Width="700"
+                        Height=" 40"
+                        Margin="0,10,0,0"
+                        Orientation="Horizontal">
+                        <TextBlock
+                            Width="70"
+                            VerticalAlignment="Center"
+                            FontSize="14"
+                            Text="性别" />
+                        <ui:ZTRadioButton
+                            CheckedBackground="#409eff"
+                            Command="{Binding SexChanageCommand}"
+                            CommandParameter="True"
+                            Content="男"
+                            IsChecked="{Binding Data.Sex, Converter={StaticResource SexBoyInverseConverter}}" />
+                        <ui:ZTRadioButton
+                            Margin="10,0,0,0"
+                            CheckedBackground="#409eff"
+                            Command="{Binding SexChanageCommand}"
+                            CommandParameter="False"
+                            Content="女"
+                            IsChecked="{Binding Data.Sex, Converter={StaticResource SexGirlInverseConverter}}" />
+
+                        <TextBlock
+                            Width="70"
+                            Margin="105,0,0,0"
+                            VerticalAlignment="Center"
+                            FontSize="14"
+                            Text="邮箱" />
+                        <ui:ZTTextBox
+                            Width="180"
+                            VerticalContentAlignment="Center"
+                            Text="{Binding Data.Email}"
+                            Watermark="请输入邮箱" />
+                    </StackPanel>
+
+
+
+                    <StackPanel
+                        Width="700"
+                        Height=" 40"
+                        Margin="0,10,0,0"
+                        Orientation="Horizontal">
+                        <TextBlock
+                            Width="70"
+                            VerticalAlignment="Center"
+                            FontSize="14"
+                            Text="状态" />
+                        <ui:ZTCheckBox
+                            CheckBoxStyle="Switch2"
+                            CheckedBackground="#409eff"
+                            CheckedContent="(开)关闭后，则冻结用户,无法登入"
+                            Content="(关)关闭后，则冻结用户,无法登入"
+                            Foreground="#409eff"
+                            IsChecked="{Binding Data.Status}" />
+                    </StackPanel>
+                    <StackPanel
+                        Width="700"
+                        Height="80"
+                        Margin="0,20,0,0"
+                        Orientation="Horizontal">
+                        <TextBlock
+                            Width="100"
+                            VerticalAlignment="Center"
+                            FontSize="16"
+                            Text="描述" />
+
+                        <ui:ZTTextBox
+                            Width="410"
+                            Height="75"
+                            Padding="10"
+                            VerticalContentAlignment="Top"
+                            FontSize="16"
+                            Text="{Binding Data.Summary}"
+                            TextWrapping="Wrap"
+                            Watermark="请输入描述" />
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+
+
+            <StackPanel
+                Grid.Row="2"
+                Margin="0,0,20,10"
+                HorizontalAlignment="Right"
+                Orientation="Horizontal">
+                <ui:ZTButton
+                    Margin="0,0,10,0"
+                    Background="White"
+                    BorderThickness="1"
+                    Command="{Binding CancelCommand}"
+                    Content="取消"
+                    Cursor="Hand"
+                    HoverBackground="#ecf5ff"
+                    HoverBorderBrush="Gray" />
+
+                <ui:ZTButton
+                    Background="#409eff"
+                    BorderThickness="1"
+                    Command="{Binding SaveCommand}"
+                    Content="确认"
+                    Cursor="Hand"
+                    Foreground="White"
+                    HoverBackground="#79bbff"
+                    HoverBorderBrush="LightGray"
+                    IsLoading="{Binding IsBusy}" />
+            </StackPanel>
+        </Grid>
+
+    </Border>
+</UserControl>

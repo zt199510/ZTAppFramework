@@ -1,0 +1,37 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Converter="clr-namespace:ZTAppFramework.Template.Converters">
+    <Converter:BoolInverseConverter x:Key="BoolInverseConverter" />
+    <Converter:Add3Converter x:Key="Add3Converter" />
+    <Converter:GridLengthConverter x:Key="GridLengthConverter" />
+    <Converter:BoolToInvisibleConverter x:Key="BoolToInvisibleConverter" />
+    <Converter:BoolToVisibleConverter x:Key="BoolToVisibleConverter" />
+    <Converter:IsNullOrEmptyConverter x:Key="IsNullOrEmptyConverter" />
+    <Converter:IsNullConverter x:Key="IsNullConverter" />
+    <Converter:IsNotNullConverter x:Key="IsNotNullConverter" />
+    <Converter:NullableColorToColoConverter x:Key="NullableColorToColoConverter" />
+    <Converter:ProgressBarCornerRadiusConverter x:Key="ProgressBarCornerRadiusConverter" />
+    <Converter:DoubleToCornerRadiusConverter x:Key="DoubleToCornerRadiusConverter" />
+    <Converter:ProgressBarPercentConverter x:Key="ProgressBarPercentConverter" />
+    <Converter:ProgressBarOffset1Converter x:Key="ProgressBarOffset1Converter" />
+    <Converter:ProgressBarOffset2Converter x:Key="ProgressBarOffset2Converter" />
+    <Converter:RingProgressBarConverter x:Key="RingProgressBarConverter" />
+    <Converter:ThicknessToDoubleConverter x:Key="ThicknessToDoubleConverter" />
+    <Converter:CheckBoxGlyphPathConverter x:Key="CheckBoxGlyphPathConverter" />
+    <Converter:SwitchToggleMarginConverter x:Key="SwitchToggleMarginConverter" />
+    <Converter:HalfConverter x:Key="HalfConverter" />
+    <Converter:Minus2Converter x:Key="Minus2Converter" />
+    <Converter:MultiComboBoxIsCheckedConverter x:Key="MultiComboBoxIsCheckedConverter" />
+
+    <!--  sex  -->
+    <Converter:SexBoyInverseConverter x:Key="SexBoyInverseConverter" />
+    <Converter:SexGirlInverseConverter x:Key="SexGirlInverseConverter" />
+
+    <Converter:WidthAndHeightToInTwonConverter x:Key="WidthAndHeightToInTwonConverter" />
+    <Converter:RunStatusToColorConverter x:Key="RunStatusToColorConverter" />
+    <Converter:AxisStatusToColorConverter x:Key="AxisStatusToColorConverter" />
+    <Converter:AxisStatusToStringConverter x:Key="AxisStatusToStringConverter" />
+    <Converter:CalibrationToStringConverter x:Key="CalibrationToStringConverter" />
+    <Converter:CompanyTypeToStringConverter x:Key="CompanyTypeToStringConverter" />
+</ResourceDictionary>

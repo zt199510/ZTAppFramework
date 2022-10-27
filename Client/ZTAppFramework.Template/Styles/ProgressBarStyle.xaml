@@ -1,0 +1,251 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:ZTAppFramework.Template.Control">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/ZTAppFramework.Template;component/Resources/ConverterStyle.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+    <Style x:Key="ZTProgressBarStyle" TargetType="{x:Type local:ZTProgressBar}">
+        <Style.Resources>
+            <ControlTemplate x:Key="StandardTemplate" TargetType="{x:Type local:ZTProgressBar}">
+                <Grid>
+                    <Border
+                        x:Name="PART_Track"
+                        Background="{TemplateBinding Background}"
+                        SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
+                        <Border.OpacityMask>
+                            <VisualBrush>
+                                <VisualBrush.Visual>
+                                    <Rectangle
+                                        Width="{Binding ActualWidth, RelativeSource={RelativeSource TemplatedParent}}"
+                                        Height="{Binding ActualHeight, RelativeSource={RelativeSource TemplatedParent}}"
+                                        Fill="Black"
+                                        RadiusX="{Binding Path=(local:ZTProgressBar.ZTCornerRadius), RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}"
+                                        RadiusY="{Binding Path=(local:ZTProgressBar.ZTCornerRadius), RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}" />
+                                </VisualBrush.Visual>
+                            </VisualBrush>
+                        </Border.OpacityMask>
+
+                        <Grid>
+                            <Border
+                                x:Name="PART_Indicator"
+                                HorizontalAlignment="Left"
+                                Background="{TemplateBinding ProgressBrush}"
+                                CornerRadius="{Binding Path=(local:ZTProgressBar.ZTCornerRadius), Converter={StaticResource ProgressBarCornerRadiusConverter}, RelativeSource={RelativeSource AncestorType=local:ZTProgressBar}, Mode=OneWay}"
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                            <Grid
+                                x:Name="Animation"
+                                ClipToBounds="True"
+                                Visibility="Collapsed">
+                                <Border
+                                    x:Name="PART_GlowRect"
+                                    Width="100"
+                                    Margin="0,0,0,0"
+                                    HorizontalAlignment="Left"
+                                    Background="Transparent">
+                                    <Rectangle Fill="{TemplateBinding Foreground}" />
+                                </Border>
+                            </Grid>
+                        </Grid>
+                    </Border>
+                    <Border
+                        Background="Transparent"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="{Binding Path=(local:ZTProgressBar.ZTCornerRadius), Converter={StaticResource DoubleToCornerRadiusConverter}, RelativeSource={RelativeSource AncestorType=local:ZTProgressBar}, Mode=OneWay}" />
+                    <TextBlock
+                        x:Name="TxtPercent"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        FontFamily="{TemplateBinding FontFamily}"
+                        FontSize="{TemplateBinding FontSize}"
+                        FontWeight="{TemplateBinding FontWeight}"
+                        Foreground="{TemplateBinding Foreground}"
+                        Visibility="Collapsed">
+                        <TextBlock.Text>
+                            <MultiBinding Converter="{StaticResource ProgressBarPercentConverter}">
+                                <Binding Path="Minimum" RelativeSource="{RelativeSource AncestorType=local:ZTProgressBar}" />
+                                <Binding Path="Maximum" RelativeSource="{RelativeSource AncestorType=local:ZTProgressBar}" />
+                                <Binding Path="Value" RelativeSource="{RelativeSource AncestorType=local:ZTProgressBar}" />
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
+                    <TextBlock
+                        x:Name="TxtPercentWhite"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        FontFamily="{TemplateBinding FontFamily}"
+                        FontSize="{TemplateBinding FontSize}"
+                        FontWeight="{TemplateBinding FontWeight}"
+                        Foreground="White"
+                        Visibility="Collapsed">
+                        <TextBlock.OpacityMask>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                <GradientStop Color="White">
+                                    <GradientStop.Offset>
+                                        <MultiBinding Converter="{StaticResource ProgressBarOffset1Converter}">
+                                            <Binding Path="Minimum" RelativeSource="{RelativeSource AncestorType=local:ZTProgressBar}" />
+                                            <Binding Path="Maximum" RelativeSource="{RelativeSource AncestorType=local:ZTProgressBar}" />
+                                            <Binding Path="Value" RelativeSource="{RelativeSource AncestorType=local:ZTProgressBar}" />
+                                            <Binding Path="ActualWidth" RelativeSource="{RelativeSource AncestorType=local:ZTProgressBar}" />
+                                            <Binding ElementName="TxtPercentWhite" Path="ActualWidth" />
+                                        </MultiBinding>
+                                    </GradientStop.Offset>
+                                </GradientStop>
+                                <GradientStop Color="Transparent">
+                                    <GradientStop.Offset>
+                                        <MultiBinding Converter="{StaticResource ProgressBarOffset2Converter}">
+                                            <Binding Path="Minimum" RelativeSource="{RelativeSource AncestorType=local:ZTProgressBar}" />
+                                            <Binding Path="Maximum" RelativeSource="{RelativeSource AncestorType=local:ZTProgressBar}" />
+                                            <Binding Path="Value" RelativeSource="{RelativeSource AncestorType=local:ZTProgressBar}" />
+                                            <Binding Path="ActualWidth" RelativeSource="{RelativeSource AncestorType=local:ZTProgressBar}" />
+                                            <Binding ElementName="TxtPercentWhite" Path="ActualWidth" />
+                                        </MultiBinding>
+                                    </GradientStop.Offset>
+                                </GradientStop>
+                            </LinearGradientBrush>
+                        </TextBlock.OpacityMask>
+                        <TextBlock.Text>
+                            <MultiBinding Converter="{StaticResource ProgressBarPercentConverter}">
+                                <Binding Path="Minimum" RelativeSource="{RelativeSource AncestorType=local:ZTProgressBar}" />
+                                <Binding Path="Maximum" RelativeSource="{RelativeSource AncestorType=local:ZTProgressBar}" />
+                                <Binding Path="Value" RelativeSource="{RelativeSource AncestorType=local:ZTProgressBar}" />
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
+                </Grid>
+                <ControlTemplate.Triggers>
+                    <DataTrigger Binding="{Binding Path=(local:ZTProgressBar.IsPercentVisible), RelativeSource={RelativeSource Self}, Mode=OneWay}" Value="True">
+                        <Setter TargetName="TxtPercent" Property="Visibility" Value="Visible" />
+                        <Setter TargetName="TxtPercentWhite" Property="Visibility" Value="Visible" />
+                    </DataTrigger>
+                    <Trigger Property="IsIndeterminate" Value="True">
+                        <Setter TargetName="PART_Indicator" Property="Visibility" Value="Collapsed" />
+                        <Setter TargetName="Animation" Property="Visibility" Value="Visible" />
+                    </Trigger>
+                </ControlTemplate.Triggers>
+            </ControlTemplate>
+
+            <ControlTemplate x:Key="RingTemplate" TargetType="{x:Type local:ZTProgressBar}">
+                <Grid x:Name="GrdMain">
+                    <Ellipse
+                        x:Name="Ellipse_Track"
+                        Fill="{TemplateBinding Background}"
+                        Stroke="{TemplateBinding BorderBrush}"
+                        StrokeThickness="{TemplateBinding BorderThickness,
+                                                          Converter={StaticResource ThicknessToDoubleConverter}}" />
+                    <Path
+                        x:Name="Path_Indicator"
+                        Stroke="{TemplateBinding ProgressBrush}"
+                        StrokeEndLineCap="Round"
+                        StrokeStartLineCap="Round"
+                        StrokeThickness="{TemplateBinding BorderThickness,
+                                                          Converter={StaticResource ThicknessToDoubleConverter}}">
+                        <Path.Data>
+                            <MultiBinding Converter="{StaticResource RingProgressBarConverter}">
+                                <Binding Path="ActualWidth" RelativeSource="{RelativeSource AncestorType=local:ZTProgressBar}" />
+                                <Binding Path="ActualHeight" RelativeSource="{RelativeSource AncestorType=local:ZTProgressBar}" />
+                                <Binding Path="BorderThickness" RelativeSource="{RelativeSource AncestorType=local:ZTProgressBar}" />
+                                <Binding Path="Minimum" RelativeSource="{RelativeSource AncestorType=local:ZTProgressBar}" />
+                                <Binding Path="Maximum" RelativeSource="{RelativeSource AncestorType=local:ZTProgressBar}" />
+                                <Binding Path="Value" RelativeSource="{RelativeSource AncestorType=local:ZTProgressBar}" />
+                            </MultiBinding>
+                        </Path.Data>
+
+                    </Path>
+                    <Path
+                        x:Name="Path_Animation"
+                        RenderTransformOrigin="0.5,0.5"
+                        Stroke="{TemplateBinding ProgressBrush}"
+                        StrokeEndLineCap="Round"
+                        StrokeStartLineCap="Round"
+                        StrokeThickness="{TemplateBinding BorderThickness,
+                                                          Converter={StaticResource ThicknessToDoubleConverter}}"
+                        Visibility="Collapsed">
+                        <Path.RenderTransform>
+                            <RotateTransform x:Name="Rotate" />
+                        </Path.RenderTransform>
+                        <Path.Data>
+                            <MultiBinding Converter="{StaticResource RingProgressBarConverter}">
+                                <Binding Path="ActualWidth" RelativeSource="{RelativeSource AncestorType=local:ZTProgressBar}" />
+                                <Binding Path="ActualHeight" RelativeSource="{RelativeSource AncestorType=local:ZTProgressBar}" />
+                                <Binding Path="BorderThickness" RelativeSource="{RelativeSource AncestorType=local:ZTProgressBar}" />
+                            </MultiBinding>
+                        </Path.Data>
+                    </Path>
+                    <TextBlock
+                        x:Name="TxtPercent"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        FontFamily="{TemplateBinding FontFamily}"
+                        FontSize="{TemplateBinding FontSize}"
+                        FontWeight="{TemplateBinding FontWeight}"
+                        Foreground="{TemplateBinding Foreground}"
+                        Visibility="Collapsed">
+                        <TextBlock.Text>
+                            <MultiBinding Converter="{StaticResource ProgressBarPercentConverter}">
+                                <Binding Path="Minimum" RelativeSource="{RelativeSource AncestorType=local:ZTProgressBar}" />
+                                <Binding Path="Maximum" RelativeSource="{RelativeSource AncestorType=local:ZTProgressBar}" />
+                                <Binding Path="Value" RelativeSource="{RelativeSource AncestorType=local:ZTProgressBar}" />
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
+                </Grid>
+
+                <ControlTemplate.Triggers>
+                    <DataTrigger Binding="{Binding Path=(local:ZTProgressBar.IsPercentVisible), RelativeSource={RelativeSource Self}, Mode=OneWay}" Value="True">
+                        <Setter TargetName="TxtPercent" Property="Visibility" Value="Visible" />
+                    </DataTrigger>
+                    <Trigger Property="IsIndeterminate" Value="True">
+                        <Setter TargetName="Path_Indicator" Property="Visibility" Value="Collapsed" />
+                        <Setter TargetName="Path_Animation" Property="Visibility" Value="Visible" />
+                        <Trigger.EnterActions>
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation
+                                        RepeatBehavior="Forever"
+                                        Storyboard.TargetName="Rotate"
+                                        Storyboard.TargetProperty="Angle"
+                                        To="360"
+                                        Duration="0:0:2" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </Trigger.EnterActions>
+                        <Trigger.ExitActions>
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation
+                                        Storyboard.TargetName="Rotate"
+                                        Storyboard.TargetProperty="Angle"
+                                        Duration="0:0:0" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </Trigger.ExitActions>
+                    </Trigger>
+                </ControlTemplate.Triggers>
+            </ControlTemplate>
+        </Style.Resources>
+        <Setter Property="SnapsToDevicePixels" Value="False" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="Background" Value="#EEEEEE" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Foreground" Value="#3E3E3E" />
+        <Setter Property="ProgressBrush" Value="Green" />
+        <Setter Property="ZTCornerRadius" Value="2" />
+        <Setter Property="ProgressBarStyle" Value="Standard" />
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Path=(local:ZTProgressBar.ProgressBarStyle), RelativeSource={RelativeSource Mode=Self}, Mode=OneWay}" Value="Standard">
+                <Setter Property="Template" Value="{DynamicResource StandardTemplate}" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Path=(local:ZTProgressBar.ProgressBarStyle), RelativeSource={RelativeSource Mode=Self}, Mode=OneWay}" Value="Ring">
+                <Setter Property="Background" Value="White" />
+                <Setter Property="BorderThickness" Value="5" />
+                <Setter Property="BorderBrush" Value="LightGray" />
+                <Setter Property="Template" Value="{DynamicResource RingTemplate}" />
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style BasedOn="{StaticResource ZTProgressBarStyle}" TargetType="{x:Type local:ZTProgressBar}" />
+</ResourceDictionary>

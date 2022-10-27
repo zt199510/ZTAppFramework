@@ -1,0 +1,27 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/ZTAppFramework.Template;component/Resources/ConverterStyle.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/ZTAppFramework.Template;component/Resources/ImageStyle.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/ZTAppFramework.Template;component/Styles/ZTLoadingStyle.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/ZTAppFramework.Template;component/Styles/WindowStyle.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/ZTAppFramework.Template;component/Styles/ColorStyle.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/ZTAppFramework.Template;component/Styles/CardStyle.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/ZTAppFramework.Template;component/Styles/ComboBoxItemStyle.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/ZTAppFramework.Template;component/Styles/ComboBoxStyle.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/ZTAppFramework.Template;component/Styles/TextBoxStyle.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/ZTAppFramework.Template;component/Styles/ButtonStyle.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/ZTAppFramework.Template;component/Styles/CheckBoxStyle.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/ZTAppFramework.Template;component/Styles/RadioButtonStyle.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/ZTAppFramework.Template;component/Styles/PasswordBoxStyle.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/ZTAppFramework.Template;component/Styles/ExpanderStyle.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/ZTAppFramework.Template;component/Styles/PathDataStyle.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/ZTAppFramework.Template;component/Styles/ProgressBarStyle.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/ZTAppFramework.Template;component/Styles/ScrollViewerStyle.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/ZTAppFramework.Template;component/Styles/DataGridStyle.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/ZTAppFramework.Template;component/Styles/MessageStyle.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/ZTAppFramework.Template;component/Styles/DialogStyle.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/ZTAppFramework.Template;component/Styles/MultiComboBoxStyle.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/ZTAppFramework.Template;component/Styles/TreeViewStyle.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/ZTAppFramework.Template;component/Styles/TreeViewItemStyle.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+</ResourceDictionary>
